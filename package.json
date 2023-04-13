@@ -1,0 +1,17 @@
+{
+  "name": "my-art-project",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "author": "Luis Espinoza",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "emprops.js": "0.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.4"
+  }
+}
