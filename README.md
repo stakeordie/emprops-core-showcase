@@ -1,4 +1,4 @@
-# emprops-sample-project
+# emprops-core-showcase
 
 Sample project showcasing `emprops-core` tools.
 
