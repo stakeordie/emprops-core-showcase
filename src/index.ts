@@ -1,7 +1,7 @@
-import { createArtGen, PseudoRandom } from "emprops.js";
+import { createArtGen, PseudoRandom } from "@stakeordie/emprops-core";
 
 const artGen = createArtGen({
-    debug: true,
+    debug: false,
     storage: {
         path: "./outputs"
     },
@@ -14,22 +14,21 @@ const artGen = createArtGen({
     }
 });
 
-artGen.onNewToken(async ({ seed: tokenSeed }, api) => {
-    const rng = new PseudoRandom(tokenSeed);
+artGen.onNewToken(async (token, api) => {
+    const rng = new PseudoRandom(token.seed);
     const seed = rng.pseudorandomInteger(1933648831, 4294967295);
-    const nationality = rng.pseudorandomPick(["mexican", "american", "chinese", "japanese"])
     const myImage = await api.loadImage("./src/assets/yuta.jpeg");
     let image = await api.runSd({
-        init_images: [myImage.content],
+        image: myImage,
         api: "img2img",
-        prompt: `A photorealistic image of a ${nationality} person`,
-        negative_prompt: "((letters)), ((numbers)), ((text)), ((symbols)), ((sentences)), ((paragraphs)), ((web interface)), ((gui)), ((web app)), ((desktop app))",
+        prompt: `A photorealistic image of a person, studio lights`,
+        negativePrompt: "((letters)), ((numbers)), ((text)), ((symbols)), ((sentences)), ((paragraphs)), ((web interface)), ((gui)), ((web app)), ((desktop app))",
         seed,
-        sampler_index: "Euler a"
+        samplerIndex: "Euler a"
     });
     image = await api.runSdUpscaler({
         image,
-        upscaler_1: "R-ESRGAN 4x+"
+        upscaler1: "R-ESRGAN 4x+"
     });
 
     return image;
