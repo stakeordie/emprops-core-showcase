@@ -17,13 +17,15 @@ const artGen = createArtGen({
 artGen.onNewToken(async ({ seed: tokenSeed }, api) => {
     const rng = new PseudoRandom(tokenSeed);
     const seed = rng.pseudorandomInteger(1933648831, 4294967295);
-    const animal = rng.pseudorandomPick(["dog", "cat", "bird", "fish", "lions", "lizards"]);
+    const nationality = rng.pseudorandomPick(["mexican", "american", "chinese", "japanese"])
+    const myImage = await api.loadImage("./src/assets/yuta.jpeg");
     let image = await api.runSd({
-        api: "txt2img",
-        prompt: `The full body of a ${animal}, Unity rendering, Pixar style`,
+        init_images: [myImage.content],
+        api: "img2img",
+        prompt: `A photorealistic image of a ${nationality} person`,
         negative_prompt: "((letters)), ((numbers)), ((text)), ((symbols)), ((sentences)), ((paragraphs)), ((web interface)), ((gui)), ((web app)), ((desktop app))",
         seed,
-        sampler_index: "PLMS"
+        sampler_index: "Euler a"
     });
     image = await api.runSdUpscaler({
         image,
@@ -33,4 +35,4 @@ artGen.onNewToken(async ({ seed: tokenSeed }, api) => {
     return image;
 });
 
-artGen.start(10);
+artGen.start(2);
