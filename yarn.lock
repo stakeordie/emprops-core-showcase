@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@stakeordie/emprops-core@0.1.5":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@stakeordie/emprops-core/-/emprops-core-0.1.5.tgz#96eab93f9b6b02dfc40c55f59733be1c6ee340c0"
-  integrity sha512-Z9NqsuuSeHEH1udzh3zN8UNeMQfhp18HfFh3Rfi7+BGfiMsWB2+G6IbL20EeqGCMSf2H1S3ewyqW0Xi4y+J3gQ==
+"@stakeordie/emprops-core@0.1.6":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@stakeordie/emprops-core/-/emprops-core-0.1.6.tgz#5fc7a08bed768a4a778d17ab8066b79433e9ee25"
+  integrity sha512-ocdcmpuqqKUO0abBgfHyStY1UmNEHvHhdn+a+vP1gBOdS9Sa7O8mGvigcPMFIwkP/0hHKS59Y9YHgz2e/KGfPw==
   dependencies:
     openai "^3.2.1"
     uuid "^9.0.0"

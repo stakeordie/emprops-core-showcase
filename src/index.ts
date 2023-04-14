@@ -3,7 +3,7 @@ import { ArtGen, PseudoRandom } from "@stakeordie/emprops-core";
 
 dotenv.config();
 
-const artGen = new ArtGen({
+new ArtGen({
   debug: process.env.DEBUG === "true",
   output: {
     // If you want to change this, make sure you update the "setup" script in package.json
@@ -22,20 +22,21 @@ const artGen = new ArtGen({
 })
   .onNewToken(async (token, api) => {
     const rng = new PseudoRandom(token.seed);
-    const seed = rng.pseudorandomInteger(1000000000, 4294967295);
-    const temperature = parseFloat(rng.pseudorandom(0, 0.65).toFixed(1));
+    const environment = rng.pseudorandomPick(["urban", "rural"]);
     const setting = await api.runOpenAICompletion({
       model: "text-davinci-003",
-      prompt: "Suggest a setting for a photo",
-      temperature,
+      prompt: `Suggest a setting for a scene in a photo in an ${environment} environment`,
+      temperature: 0.8,
       n: 1,
     });
+    const seed = rng.pseudorandomInteger(1, 4294967295);
     let output = await api.runSd({
       api: "txt2img",
-      prompt: `A photo of a ${setting}, Realistic`,
+      prompt: `A photo of ${setting}, Realistic`,
       negative_prompt:
         "((letters)), ((numbers)), ((text)), ((symbols)), ((sentences)), ((paragraphs)), ((web interface)), ((gui)), ((web app)), ((desktop app))",
       seed,
+      steps: 32,
       sampler_name: "DPM++ SDE",
     });
     output = await api.runSdUpscaler({
