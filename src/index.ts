@@ -39,17 +39,32 @@ new ArtGen({
   },
 })
   .onNewToken(async ({ api, prng }) => {
-    const seed = prng.pseudorandomInteger(1, Number.MAX_SAFE_INTEGER);
-    const environment = prng.pseudorandomPick(["urban", "rural"]);
+    const seed = prng.pseudorandomInteger(1000000000, Number.MAX_SAFE_INTEGER);
+    const paint = prng.pseudorandomPick(["watercolor", "acrylic"]);
 
-    let output = await api.runSd({
-      api: "txt2img",
-      prompt: `A photo of a ${environment}, Realistic`,
+    const r = prng.pseudorandomInteger(0, 255);
+    const g = prng.pseudorandomInteger(0, 255);
+    const b = prng.pseudorandomInteger(0, 255);
+
+    const url = `file://${__dirname}/../src/assets/index.html`;
+    let output = await api.takeScreenshot(url, {
+      width: 512,
+      height: 512,
+      window: {
+        backgroundColor: { r, g, b },
+      },
+    });
+    output = await api.runSd({
+      api: "img2img",
+      prompt: `A ${paint} painting of galaxy far far away universe with a lot of starts and galaxies, big bang, (((constelations)))++, expnasion, ((3D)), (((special effects))), poster`,
       negative_prompt:
-        "((letters)), ((numbers)), ((text)), ((symbols)), ((sentences)), ((paragraphs)), ((web interface)), ((gui)), ((web app)), ((desktop app))",
+        "(((frames))), background, framing, photo of the painting, framing, drawing, (photo), (((paint box))",
       seed,
-      steps: 32,
-      sampler_name: "DPM++ SDE",
+      steps: 20,
+      sampler_name: "Euler a",
+      cfg_scale: 8.5,
+      denoising_strength: 0.9,
+      init_images: [output],
     });
     output = await api.runSdUpscaler({
       image: output,
@@ -57,8 +72,8 @@ new ArtGen({
       upscaling_resize: 3,
     });
 
-    api.addFeature("environment", environment);
+    api.addFeature("paint", paint);
 
     return output;
   })
-  .start();
+  .start(10);

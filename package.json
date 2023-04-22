@@ -10,7 +10,7 @@
     "setup": "mkdir outputs"
   },
   "dependencies": {
-    "@stakeordie/emprops-core": "0.1.8",
+    "@stakeordie/emprops-core": "0.1.12",
     "dotenv": "^16.0.3"
   },
   "devDependencies": {
