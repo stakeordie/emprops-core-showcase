@@ -16,7 +16,7 @@ Setup the project
 yarn setup
 ```
 
-Create a copy of `.env.example`, name it `.env` and set values for all env vars defined
+In case you don't have a `.env. file, create a copy of `.env.example`, name it `.env` and set values for all env vars defined
 
 ```sh
 cp .env.example .env
