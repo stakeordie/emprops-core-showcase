@@ -18,6 +18,8 @@ declare global {
       TEZOS_RPC_URL: string;
       UPDATER_WALLET_PK: string;
       STORAGE_PATH: string;
+      NUMBER: string;
+      SEED: string;
     }
   }
 }

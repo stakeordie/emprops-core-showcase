@@ -77,4 +77,4 @@ new ArtGen({
 
     return output;
   })
-  .start(10);
+  .start(parseInt(process.env.NUMBER || "1"), process.env.SEED);
