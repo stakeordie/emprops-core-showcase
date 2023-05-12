@@ -4,6 +4,7 @@ import { ArtGen, Env } from "@stakeordie/emprops-core";
 dotenv.config();
 
 new ArtGen({
+  blockchain: "tezos",
   env: process.env.NODE_ENV as Env,
   debug: process.env.DEBUG === "true",
   output: {
