@@ -181,10 +181,10 @@
     "@stablelib/salsa20" "^1.0.2"
     "@stablelib/wipe" "^1.0.1"
 
-"@stakeordie/emprops-core@0.1.12":
-  version "0.1.12"
-  resolved "https://registry.yarnpkg.com/@stakeordie/emprops-core/-/emprops-core-0.1.12.tgz#001df0abbb06d6336ed80324472d08123b9e371a"
-  integrity sha512-LVlo2dzGrlr+p4y0gjckNT3zZcvpazTbtfWQedC0djfny/8d2QX88K8Nx182Wd0Q4AmDf7Iws+jI01/k3KNZhw==
+"@stakeordie/emprops-core@0.1.17":
+  version "0.1.17"
+  resolved "https://registry.yarnpkg.com/@stakeordie/emprops-core/-/emprops-core-0.1.17.tgz#e083e690531d162eafbb8790259886c3cb6cbf0b"
+  integrity sha512-b73I9vtKAHjvbKY0l0dyohiv0kiqKfbKN4OfF9uk0tQNTXrdF86GRBwCbjtI3H6xMqLKtFfe/WrstVk5vxlAog==
   dependencies:
     "@taquito/signer" "^16.1.2"
     "@taquito/taquito" "^16.1.2"
