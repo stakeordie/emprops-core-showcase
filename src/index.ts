@@ -43,18 +43,8 @@ new ArtGen({
     const seed = prng.pseudorandomInteger(1000000000, Number.MAX_SAFE_INTEGER);
     const paint = prng.pseudorandomPick(["watercolor", "acrylic"]);
 
-    const r = prng.pseudorandomInteger(0, 255);
-    const g = prng.pseudorandomInteger(0, 255);
-    const b = prng.pseudorandomInteger(0, 255);
+    let output = await api.loadImage("./src/assets/star.png");
 
-    const url = `file://${__dirname}/../src/assets/index.html`;
-    let output = await api.takeScreenshot(url, {
-      width: 512,
-      height: 512,
-      window: {
-        backgroundColor: { r, g, b },
-      },
-    });
     output = await api.runSd({
       api: "img2img",
       prompt: `A ${paint} painting of galaxy far far away universe with a lot of starts and galaxies, big bang, (((constelations)))++, expnasion, ((3D)), (((special effects))), poster`,
