@@ -20,6 +20,11 @@ declare global {
       STORAGE_PATH: string;
       NUMBER: string;
       SEED: string;
+      IPFS_URL: string;
+			S3_ACCESS_KEY: string,
+			S3_SECRET_KEY: string;
+			S3_REGION: string;
+			S3_BUCKET: string;
     }
   }
 }

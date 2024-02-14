@@ -4,7 +4,6 @@ import { ArtGen, Env } from "@stakeordie/emprops-core";
 dotenv.config();
 
 new ArtGen({
-  blockchain: "tezos",
   env: process.env.NODE_ENV as Env,
   debug: process.env.DEBUG === "true",
   output: {
@@ -29,14 +28,24 @@ new ArtGen({
     url: process.env.EMPROPS_API_URL,
     pollingInterval: 30_000,
     projectId: process.env.PROJECT_ID,
+    platform: "curator",
+    cdnUrl: "https://emprops.com",
+    chainIds: "",
   },
   ipfs: {
+    ipfsApiUrl: process.env.IPFS_URL,
     filebase: {
       url: process.env.FILEBASE_URL,
       accessKey: process.env.FILEBASE_ACCESS_KEY,
       secretKey: process.env.FILEBASE_SECRET_KEY,
       bucket: process.env.FILEBASE_BUCKET,
     },
+  },
+  s3: {
+    accessKeyId: process.env.S3_ACCESS_KEY,
+    secretAccessKey: process.env.S3_SECRET_KEY,
+    region: process.env.S3_REGION,
+    bucket: process.env.S3_BUCKET,
   },
 })
   .onNewToken(async ({ api, prng }) => {
@@ -57,20 +66,20 @@ new ArtGen({
     });
     output = await api.runSd({
       api: "img2img",
+      override_settings: {
+        sd_model_checkpoint: "sd_xl_base_1.0.safetensors [31e35c80fc]",
+      },
       prompt: `A ${paint} painting of galaxy far far away universe with a lot of starts and galaxies, big bang, (((constelations)))++, expnasion, ((3D)), (((special effects))), poster`,
       negative_prompt:
         "(((frames))), background, framing, photo of the painting, framing, drawing, (photo), (((paint box))",
       seed,
-      steps: 20,
-      sampler_name: "Euler a",
-      cfg_scale: 8.5,
-      denoising_strength: 0.9,
+      steps: 50,
+      sampler_name: "Heun",
+      cfg_scale: 16,
+      denoising_strength: 0.8,
       init_images: [output],
-    });
-    output = await api.runSdUpscaler({
-      image: output,
-      upscaler_1: "R-ESRGAN 4x+",
-      upscaling_resize: 3,
+      width: 1024,
+      height: 1024,
     });
 
     api.addFeature("paint", paint);
